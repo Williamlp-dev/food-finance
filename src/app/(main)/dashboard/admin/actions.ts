@@ -16,7 +16,5 @@ export async function deleteApplication() {
     forbidden();
   }
 
-  // Delete app...
-
   await setTimeout(800);
 }

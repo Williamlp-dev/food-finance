@@ -23,7 +23,6 @@ export type PurchaseResult = {
   createdAt: Date;
 };
 
-// Função interna cacheada
 async function fetchGenericPurchases(userId: string) {
   "use cache";
   cacheTag(`purchases-${userId}`);

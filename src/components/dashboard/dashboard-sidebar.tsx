@@ -52,7 +52,6 @@ export function DashboardSidebar({
 
   return (
     <>
-      {/* Mobile overlay */}
       {open ? (
         <div
           aria-hidden="true"
@@ -61,17 +60,12 @@ export function DashboardSidebar({
         />
       ) : null}
 
-      {/* Sidebar */}
       <aside
         aria-label="Sidebar navigation"
         className={cn(
           "fixed inset-y-0 left-0 z-50 w-56 border-r bg-card transition-transform duration-300 ease-out",
-          // Mobile visibility
           open ? "translate-x-0" : "-translate-x-full",
-          // Desktop visibility (collapsed = hidden)
           collapsed ? "md:-translate-x-full" : "md:translate-x-0"
-          // Force hidden on desktop if intended (sidebar is default open on desktop, but if logic requires)
-          // The previous logic for desktop was handled by `collapsed` prop which shifts it.
         )}
       >
         <div className="flex h-full flex-col">

@@ -58,12 +58,6 @@ export function StockClient({
       if (result.success) {
         toast.success("Item excluído com sucesso!");
         setDeletingItem(null);
-        // Since deleteStockItem calls revalidateTag, router.refresh() will fetch new data.
-        // But we are in a client component, so we rely on parent passing new props OR
-        // router.refresh() to re-run server component.
-        // Wait, standard way:
-        // router.refresh();
-        // I'll import router
       } else {
         toast.error(result.error || "Erro ao excluir item");
       }

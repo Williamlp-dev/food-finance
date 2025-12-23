@@ -31,10 +31,6 @@ import {
 import { generatePaymentReceipt } from "@/lib/generate-payment-pdf";
 import { PaymentForm } from "./payment-form";
 
-// Note: Ensure deletePayment action exists or remove deletion capability for now if not requested.
-// Since user didn't request delete, I'll omit the delete action/button to save time/complexity and stick to requirements.
-// But I will leave the structure ready.
-
 type PaymentClientProps = {
   initialPayments: PaymentResult[];
   employees: Employee[];

@@ -27,7 +27,6 @@ export async function createStockItem(
 
   const quantity = parsed.data.quantity;
   const unitCost = parsed.data.unitCost;
-  // Calculate total safely using Decimal logic
   const totalValue = new Prisma.Decimal(unitCost).mul(quantity);
 
   try {
@@ -50,7 +49,7 @@ export async function createStockItem(
   } catch (error) {
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2002" // Unique constraint failed
+      error.code === "P2002"
     ) {
       return {
         success: false,

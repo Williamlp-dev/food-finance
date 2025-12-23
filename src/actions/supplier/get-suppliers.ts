@@ -15,7 +15,6 @@ export type SupplierResult = {
   createdAt: Date;
 };
 
-// Função interna cacheada
 async function fetchGenericSuppliers(userId: string) {
   "use cache";
   cacheTag(`suppliers-${userId}`);

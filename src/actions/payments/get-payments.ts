@@ -32,7 +32,6 @@ async function fetchGenericPayments(userId: string) {
     },
   });
 
-  // Convert Decimals to numbers for client safety
   return payments.map((p) => ({
     id: p.id,
     date: p.date,

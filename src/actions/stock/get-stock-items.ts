@@ -17,7 +17,6 @@ export type StockItemResult = {
   createdAt: Date;
 };
 
-// Função interna cacheada
 async function fetchGenericStockItems(userId: string) {
   "use cache";
   cacheTag(`stock-items-${userId}`);

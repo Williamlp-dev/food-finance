@@ -61,7 +61,7 @@ export async function updateStockItem(
     ) {
       return {
         success: false,
-        error: "Já existe um item com este nome", // Return error alongside for type satisfaction
+        error: "Já existe um item com este nome",
         fieldErrors: {
           name: ["Já existe um item com este nome"],
         },

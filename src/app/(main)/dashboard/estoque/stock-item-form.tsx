@@ -84,7 +84,6 @@ export function StockItemForm({
     },
   });
 
-  // Reset form when item changes
   useEffect(() => {
     if (item) {
       form.reset({
@@ -110,20 +109,18 @@ export function StockItemForm({
   const watchedUnitCost = form.watch("unitCost");
 
   const qtyValue = parseNumber(watchedQty);
-  // Parse for display calculation only
   const costValue = Number(watchedUnitCost) || 0;
   const totalValue = qtyValue * costValue;
 
   async function onSubmit(data: FormValues): Promise<void> {
     const qty = parseNumber(data.quantity);
-    // unitCost is already a string validated by regex
 
     const formData: StockItemFormData = {
       name: data.name,
       description: data.description,
       unit: data.unit,
       quantity: qty,
-      unitCost: data.unitCost, // Pass string directly
+      unitCost: data.unitCost,
     };
 
     try {
@@ -143,17 +140,11 @@ export function StockItemForm({
         if (!isEditing) {
           form.reset();
         }
-        // Properly handle the optional generic return type which might be void or { itemId: string }
-        // We cast to any safe access because we know create returns object and update returns void/undefined in data
         const returnData = result.data as { itemId?: string } | undefined;
         onSuccess?.(returnData?.itemId);
       } else {
         if (result.fieldErrors) {
           for (const [field, errors] of Object.entries(result.fieldErrors)) {
-            // Mapping keys: generic StockItemFormData keys roughly match form keys.
-            // TS check: field is keyof StockItemFormData.
-            // We need to match it to keyof FormValues.
-            // 'quantity' and 'unitCost' are strings in FormValues, match perfectly name-wise.
             if (field in formSchema.shape) {
               form.setError(field as keyof FormValues, {
                 type: "server",
