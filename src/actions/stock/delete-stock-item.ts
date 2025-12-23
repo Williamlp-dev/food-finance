@@ -1,5 +1,6 @@
 "use server";
 
+import { Prisma } from "@prisma/client";
 import { updateTag } from "next/cache";
 import { unauthorized } from "next/navigation";
 import { getServerSession } from "@/lib/get-session";
@@ -28,9 +29,6 @@ export async function deleteStockItem(id: string): Promise<ActionResult> {
 
     return { success: true, data: undefined };
   } catch (error) {
-    /* eslint-disable-next-line @typescript-eslint/consistent-type-imports */
-    const { Prisma } = await import("@prisma/client");
-
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2003"

@@ -1,5 +1,6 @@
 "use server";
 
+import { Prisma } from "@prisma/client";
 import { updateTag } from "next/cache";
 import { unauthorized } from "next/navigation";
 import { getServerSession } from "@/lib/get-session";
@@ -23,9 +24,6 @@ export async function createStockItem(
       fieldErrors: parsed.error.flatten().fieldErrors,
     };
   }
-
-  /* eslint-disable-next-line @typescript-eslint/consistent-type-imports */
-  const { Prisma } = await import("@prisma/client");
 
   const quantity = parsed.data.quantity;
   const unitCost = parsed.data.unitCost;
