@@ -11,11 +11,11 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Better-Auth Tutorial",
-    absolute: "Better-Auth Tutorial by Coding in Flow",
+    template: "%s | Food Finance",
+    absolute: "Food Finance",
   },
   description:
-    "Learn how to handle authentication in Next.js using Better-Auth with this tutorial by Coding in Flow",
+    "Sistema completo de gestão financeira para pequenos negócios. Controle vendas, compras, estoque, despesas e folha de pagamento em uma plataforma simples e eficiente.",
 };
 
 export default function RootLayout({
