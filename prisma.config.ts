@@ -8,5 +8,7 @@ export default defineConfig({
   },
   datasource: {
     url: env("DATABASE_URL"),
+    // @ts-expect-error - Direct URL is required by CLI but types are missing it
+    directUrl: env("DIRECT_URL"),
   },
 });

@@ -1,10 +1,10 @@
 "use server";
 
-import { Prisma } from "@prisma/client";
 import { updateTag } from "next/cache";
 import { unauthorized } from "next/navigation";
 import { getServerSession } from "@/lib/get-session";
 import prisma from "@/lib/prisma";
+import { Prisma } from "../../../generated/prisma/client";
 import type { ActionResult } from "../types";
 import { type PurchaseFormData, purchaseSchema } from "./types";
 
