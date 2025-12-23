@@ -102,6 +102,7 @@ export function DashboardSidebar({
                   href={item.href}
                   key={item.href}
                   onClick={onClose}
+                  prefetch={true}
                 >
                   <Icon className="size-4 shrink-0" />
                   <span>{item.name}</span>

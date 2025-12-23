@@ -57,7 +57,11 @@ export function UserDropdown({ user }: UserDropdownProps): React.ReactElement {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link className="flex items-center gap-2" href="/dashboard/profile">
+          <Link
+            className="flex items-center gap-2"
+            href="/dashboard/profile"
+            prefetch={true}
+          >
             <UserIcon className="size-4" />
             <span>Perfil</span>
           </Link>
@@ -73,7 +77,11 @@ export function UserDropdown({ user }: UserDropdownProps): React.ReactElement {
 function AdminItem(): React.ReactElement {
   return (
     <DropdownMenuItem asChild>
-      <Link className="flex items-center gap-2" href="/dashboard/admin">
+      <Link
+        className="flex items-center gap-2"
+        href="/dashboard/admin"
+        prefetch={true}
+      >
         <ShieldIcon className="size-4" />
         <span>Admin</span>
       </Link>
