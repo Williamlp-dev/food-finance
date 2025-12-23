@@ -51,8 +51,10 @@ export function ConfirmDeleteDialog({
             onClick={handleConfirm}
             variant="destructive"
           >
-            {isDeleting && <Loader2 className="mr-2 size-4 animate-spin" />}
-            Excluir
+            {isDeleting ? (
+              <Loader2 className="mr-2 size-4 animate-spin" />
+            ) : null}
+            {isDeleting ? "Excluindo..." : "Excluir"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

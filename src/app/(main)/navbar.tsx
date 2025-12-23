@@ -27,7 +27,7 @@ export async function Navbar(): Promise<React.ReactElement | null> {
             src={codingInFlowLogo}
             width={28}
           />
-          <span className="hidden sm:inline">Better-Auth Tutorial</span>
+          <span className="hidden sm:inline">Food Finance</span>
         </Link>
         <div className="flex items-center gap-1.5">
           <ModeToggle />

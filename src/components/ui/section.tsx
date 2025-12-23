@@ -12,7 +12,7 @@ export const Cross = () => (
     <div className="absolute top-3 h-px w-6 bg-background" />
 
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      <PlusIcon className="text-border/70 dark:text-border" size={20} />
+      <PlusIcon className="text-muted-foreground/50" size={20} />
     </div>
   </div>
 );
