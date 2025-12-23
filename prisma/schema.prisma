@@ -1,0 +1,238 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                String            @id
+  name              String
+  email             String
+  emailVerified     Boolean
+  image             String?
+  role              String?
+  createdAt         DateTime
+  updatedAt         DateTime
+  sessions          Session[]
+  accounts          Account[]
+  suppliers         Supplier[]
+  stockItems        StockItem[]
+  purchases         Purchase[]
+  employees         Employee[]
+  payments          Payment[]
+  expenseCategories ExpenseCategory[]
+  expenses          Expense[]
+  sales             Sale[]
+  store             Store?
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model Supplier {
+  id        String     @id @default(cuid())
+  name      String
+  phone     String?
+  email     String?
+  address   String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchases Purchase[]
+
+  @@map("supplier")
+}
+
+model StockItem {
+  id            String         @id @default(cuid())
+  name          String
+  description   String?
+  unit          String         @default("un")
+  quantity      Float          @default(0)
+  unitCost      Decimal        @db.Decimal(10, 2) @default(0)
+  totalValue    Decimal        @db.Decimal(10, 2) @default(0)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  userId        String
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchaseItems PurchaseItem[]
+
+  @@unique([name, userId])
+  @@map("stock_item")
+}
+
+model Purchase {
+  id            String         @id @default(cuid())
+  date          DateTime
+  paymentMethod String
+  notes         String?
+  total         Decimal        @db.Decimal(10, 2)
+  supplierId    String
+  supplier      Supplier       @relation(fields: [supplierId], references: [id])
+  userId        String
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  items         PurchaseItem[]
+
+  @@map("purchase")
+}
+
+model PurchaseItem {
+  id          String    @id @default(cuid())
+  quantity    Float
+  unitPrice   Decimal   @db.Decimal(10, 2)
+  total       Decimal   @db.Decimal(10, 2)
+  purchaseId  String
+  purchase    Purchase  @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  stockItemId String
+  stockItem   StockItem @relation(fields: [stockItemId], references: [id])
+
+  @@map("purchase_item")
+}
+
+model Employee {
+  id         String   @id @default(cuid())
+  name       String
+  cpf        String?
+  phone      String?
+  role       String
+  baseSalary Decimal  @db.Decimal(10, 2) @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments   Payment[]
+
+  @@map("employee")
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  date        DateTime
+  description String?
+  grossValue  Decimal  @db.Decimal(10, 2)
+  discounts   Decimal  @db.Decimal(10, 2)
+  netValue    Decimal  @db.Decimal(10, 2)
+  employeeId  String
+  employee    Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("payment")
+}
+
+model ExpenseCategory {
+  id        String    @id @default(cuid())
+  name      String
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  expenses  Expense[]
+
+  @@unique([name, userId])
+  @@map("expense_category")
+}
+
+model Expense {
+  id              String           @id @default(cuid())
+  description     String?
+  value           Decimal          @db.Decimal(10, 2)
+  date            DateTime
+  paymentMethod   String
+  categoryId      String
+  category        ExpenseCategory  @relation(fields: [categoryId], references: [id])
+  userId          String
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@map("expense")
+}
+
+model Sale {
+  id            String   @id @default(cuid())
+  date          DateTime
+  totalValue    Decimal  @db.Decimal(10, 2)
+  paymentMethod String
+  notes         String?
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("sale")
+}
+
+model Store {
+  id        String   @id @default(cuid())
+  name      String
+  cnpj      String?
+  phone     String?
+  address   String?
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("store")
+}
+
