@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Section } from "@/components/ui/section";
 
 export const Footer = () => (
-  <Section className="bg-background py-12">
+  <Section className="border-border border-t border-dashed bg-dashed py-12">
     <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 text-center md:flex-row md:text-left">
       <div className="flex flex-col gap-2">
         <h3 className="font-semibold text-lg tracking-tight">Food Finance</h3>
@@ -20,7 +20,7 @@ export const Footer = () => (
       <div className="flex items-center gap-4">
         <Link
           className="text-muted-foreground transition-colors hover:text-foreground"
-          href="https://github.com"
+          href="https://github.com/Williamlp-dev/food-finance"
           target="_blank"
         >
           <Github className="size-5" />

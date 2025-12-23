@@ -16,7 +16,7 @@ export const Hero = () => (
       viewport={{ once: true }}
       whileInView={{ opacity: 1 }}
     >
-      <div className="absolute right-0 bottom-0 h-[600px] w-[600px] translate-x-1/3 translate-y-1/3 rounded-full bg-primary/5 blur-3xl" />
+      <div className="absolute right-0 bottom-0 h-[600px] w-[600px] translate-x-1/3 translate-y-1/3 rounded-full bg-primary/10 blur-3xl dark:bg-primary/5" />
     </motion.div>
 
     <motion.div
@@ -51,7 +51,7 @@ export const Hero = () => (
         </Button>
         <Button
           asChild
-          className="group gap-2 bg-muted/70 shadow-none"
+          className="group gap-2 bg-muted/50 shadow-none hover:bg-muted"
           size="lg"
           variant="outline"
         >
