@@ -55,7 +55,7 @@ export function DashboardSidebar({
       {open ? (
         <div
           aria-hidden="true"
-          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm transition-opacity duration-200 md:hidden"
+          className="fixed inset-0 z-40 touch-none bg-background/80 backdrop-blur-sm transition-opacity duration-200 md:hidden"
           onClick={onClose}
         />
       ) : null}
